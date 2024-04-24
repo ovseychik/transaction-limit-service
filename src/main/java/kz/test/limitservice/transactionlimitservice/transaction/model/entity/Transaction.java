@@ -38,6 +38,8 @@ public class Transaction {
   @Column(nullable = false)
   private ZonedDateTime datetime;
 
+  private boolean limitExceeded;
+
   @Transient
   private BigDecimal limitSum;
 
@@ -125,5 +127,13 @@ public class Transaction {
 
   public void setLimitCurrencyShortName(String limitCurrencyShortName) {
     this.limitCurrencyShortName = limitCurrencyShortName;
+  }
+
+  public boolean isLimitExceeded() {
+    return limitExceeded;
+  }
+
+  public void setLimitExceeded(boolean limitExceeded) {
+    this.limitExceeded = limitExceeded;
   }
 }
