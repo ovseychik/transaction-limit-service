@@ -3,6 +3,7 @@ package kz.test.limitservice.transactionlimitservice.transaction.controller;
 import kz.test.limitservice.transactionlimitservice.transaction.model.entity.Transaction;
 import kz.test.limitservice.transactionlimitservice.transaction.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,9 +26,9 @@ public class TransactionController {
   }
 
   @PostMapping
-  public ResponseEntity<Void> createTransaction(@RequestBody Transaction transaction) {
-    transactionService.saveTransaction(transaction);
-    return ResponseEntity.noContent().build();
+  public ResponseEntity<Transaction> createTransaction(@RequestBody Transaction transaction) {
+    Transaction savedTransaction = transactionService.saveTransaction(transaction);
+    return new ResponseEntity<>(savedTransaction, HttpStatus.CREATED);
   }
 
   @GetMapping

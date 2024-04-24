@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import kz.test.limitservice.transactionlimitservice.transaction.model.ExpenseCategory;
+import org.springframework.data.annotation.ReadOnlyProperty;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
@@ -24,12 +25,13 @@ public class Limit {
   private BigDecimal sum;
 
   @Column(nullable = false)
-  private ZonedDateTime datetime;
+  private ZonedDateTime datetime = ZonedDateTime.now();
 
   @Column(length = 3, nullable = false)
   private String currencyShortName = "USD";
 
   @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
   private ExpenseCategory expenseCategory;
 
   public Long getId() {
