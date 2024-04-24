@@ -5,14 +5,13 @@ import kz.test.limitservice.transactionlimitservice.transaction.model.ExpenseCat
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 
 public interface LimitRepository extends JpaRepository<Limit, Long> {
   @Query(
       """
-        SELECT l.sum
+        SELECT l
         FROM Limit l
         WHERE l.expenseCategory = :category
         AND l.datetime <= :dateTime
@@ -21,8 +20,8 @@ public interface LimitRepository extends JpaRepository<Limit, Long> {
         ORDER BY l.datetime DESC
       """
   )
-  Optional<BigDecimal> getCurrentLimitByCategory(
+  Optional<Limit> getCurrentLimitByCategory(
       ExpenseCategory category,
-      ZonedDateTime dateTime);
-
+      ZonedDateTime dateTime
+  );
 }
