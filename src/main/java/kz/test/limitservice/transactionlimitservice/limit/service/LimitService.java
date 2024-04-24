@@ -6,7 +6,6 @@ import kz.test.limitservice.transactionlimitservice.transaction.model.ExpenseCat
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +36,7 @@ public class LimitService {
     return limitRepository.findAll();
   }
 
-  public Optional<BigDecimal> getCurrentLimitByCategory(ExpenseCategory category, ZonedDateTime dateTime) {
+  public Optional<Limit> getCurrentLimitByCategory(ExpenseCategory category, ZonedDateTime dateTime) {
     return limitRepository.getCurrentLimitByCategory(category, dateTime);
   }
 
