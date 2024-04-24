@@ -36,7 +36,9 @@ public class Transaction {
   private ExpenseCategory expenseCategory;
 
   @Column(nullable = false)
-  private ZonedDateTime datetime;
+  private ZonedDateTime dateTime;
+
+  private boolean limitExceeded;
 
   @Transient
   private BigDecimal limitSum;
@@ -95,12 +97,12 @@ public class Transaction {
     this.expenseCategory = expenseCategory;
   }
 
-  public ZonedDateTime getDatetime() {
-    return datetime;
+  public ZonedDateTime getDateTime() {
+    return dateTime;
   }
 
-  public void setDatetime(ZonedDateTime datetime) {
-    this.datetime = datetime;
+  public void setDatetime(ZonedDateTime dateTime) {
+    this.dateTime = dateTime;
   }
 
   public BigDecimal getLimitSum() {
@@ -125,5 +127,13 @@ public class Transaction {
 
   public void setLimitCurrencyShortName(String limitCurrencyShortName) {
     this.limitCurrencyShortName = limitCurrencyShortName;
+  }
+
+  public boolean isLimitExceeded() {
+    return limitExceeded;
+  }
+
+  public void setLimitExceeded(boolean limitExceeded) {
+    this.limitExceeded = limitExceeded;
   }
 }
