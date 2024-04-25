@@ -9,8 +9,8 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 
 public interface LimitRepository extends JpaRepository<Limit, Long> {
-  @Query(
-      """
+
+  @Query("""
         SELECT l
         FROM Limit l
         WHERE l.expenseCategory = :category
@@ -19,8 +19,7 @@ public interface LimitRepository extends JpaRepository<Limit, Long> {
         AND EXTRACT(MONTH FROM l.datetime) = EXTRACT(MONTH FROM :dateTime)
         ORDER BY l.datetime DESC
         LIMIT 1
-      """
-  )
+      """)
   Optional<Limit> getCurrentLimitByCategory(
       ExpenseCategory category,
       ZonedDateTime dateTime

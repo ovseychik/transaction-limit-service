@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -49,6 +50,24 @@ public class FxService {
     return rates;
   }
 
+  public BigDecimal getRateAtDate(String currency, LocalDate date) {
+    FxRate fxRate = getFxRateForDate(currency, date);
+    if (fxRate == null) {
+      fxRate = getLatestFxRateBeforeDate(currency, date);
+      if (fxRate == null) throw new IllegalStateException("FX rate is not available for currency " + currency);
+
+    }
+    return BigDecimal.valueOf(fxRate.getRate());
+  }
+
+  private FxRate getFxRateForDate(String currency, LocalDate date) {
+    return fxRepository.findByCurrencyCodeAndDate(currency, date).orElse(null);
+  }
+
+  private FxRate getLatestFxRateBeforeDate(String currency, LocalDate date) {
+    return fxRepository.findTopByCurrencyCodeAndDateBeforeOrderByDateDesc(currency, date).orElse(null);
+  }
+
   private List<FxRate> saveOrUpdateRates(List<FxRate> newRates) {
     return newRates.stream()
         .map(this::saveOrUpdateRate)
@@ -58,7 +77,7 @@ public class FxService {
   private FxRate saveOrUpdateRate(FxRate newRate) {
     Optional<FxRate> oldRate = fxRepository.findByCurrencyCodeAndDate(newRate.getCurrencyCode(), newRate.getDate());
     if (oldRate.isPresent()) {
-      newRate.setId(oldRate.get().getId()); // overwrite the id to ensure JPA updates the rate
+      newRate.setId(oldRate.get().getId());
     }
     return fxRepository.save(newRate);
   }

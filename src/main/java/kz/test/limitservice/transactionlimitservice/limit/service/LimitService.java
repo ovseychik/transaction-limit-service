@@ -39,5 +39,4 @@ public class LimitService {
   public Optional<Limit> getCurrentLimitByCategory(ExpenseCategory category, ZonedDateTime dateTime) {
     return limitRepository.getCurrentLimitByCategory(category, dateTime);
   }
-
 }

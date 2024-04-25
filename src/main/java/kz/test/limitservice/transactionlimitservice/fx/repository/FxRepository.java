@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface FxRepository extends JpaRepository<FxRate, Long> {
   Optional<FxRate> findByCurrencyCodeAndDate(String currencyCode, LocalDate date);
+  Optional<FxRate> findTopByCurrencyCodeAndDateBeforeOrderByDateDesc(String currencyCode, LocalDate date);
 }
