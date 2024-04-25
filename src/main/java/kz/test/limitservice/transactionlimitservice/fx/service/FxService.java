@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +25,7 @@ public class FxService {
   private final RestTemplate restTemplate;
 
   @Autowired
-  public FxService(FxRepository fxRepository, @Value("${api_key") String apiKey) {
+  public FxService(FxRepository fxRepository, @Value("${api_key}") String apiKey) {
     this.fxRepository = fxRepository;
     this.restTemplate = new RestTemplate();
     this.apiKey = apiKey;
@@ -35,16 +36,31 @@ public class FxService {
   }
 
   /**
-   * Maps response from external API to FxRate entities and save them in DB
+   * Maps response from external API to FxRate entities and saves them in DB
    */
-  public void updateRates(LocalDate from, LocalDate to) {
+  public List<FxRate> updateRates(LocalDate from, LocalDate to) {
     List<FxRate> rates = new ArrayList<>();
     for (LocalDate date = from; !date.isAfter(to); date = date.plusDays(1)) {
       String url = createUrl(date);
       FxResponse response = restTemplate.getForObject(url, FxResponse.class);
-      rates.addAll(convertToEntities(date, response));
+      List<FxRate> newRates = convertToEntities(date, response);
+      rates.addAll(saveOrUpdateRates(newRates));
     }
-    fxRepository.saveAll(rates);
+    return rates;
+  }
+
+  private List<FxRate> saveOrUpdateRates(List<FxRate> newRates) {
+    return newRates.stream()
+        .map(this::saveOrUpdateRate)
+        .collect(Collectors.toList());
+  }
+
+  private FxRate saveOrUpdateRate(FxRate newRate) {
+    Optional<FxRate> oldRate = fxRepository.findByCurrencyCodeAndDate(newRate.getCurrencyCode(), newRate.getDate());
+    if (oldRate.isPresent()) {
+      newRate.setId(oldRate.get().getId()); // overwrite the id to ensure JPA updates the rate
+    }
+    return fxRepository.save(newRate);
   }
 
   /**
@@ -55,7 +71,7 @@ public class FxService {
         .map(entry -> {
           FxRate fxRate = new FxRate();
           fxRate.setCurrencyCode(entry.getKey());
-          fxRate.setValue(entry.getValue().getValue());
+          fxRate.setRate(entry.getValue().getValue());
           fxRate.setDate(date);
           return fxRate;
         })
@@ -67,6 +83,6 @@ public class FxService {
    */
   private String createUrl(LocalDate date) {
     String formattedDate = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    return baseUrl + "?apikey=" + apiKey + "&currencies=KZT%2CUSD%2CEUR%2CRUB&date=" + formattedDate;
+    return baseUrl + "?apikey=" + apiKey + "&currencies=KZT,USD,EUR,RUB&date=" + formattedDate;
   }
 }

@@ -15,7 +15,7 @@ public class FxRate {
   private Long id;
 
   private String currencyCode;
-  private Double value;
+  private Double rate;
   private LocalDate date;
 
   public Long getId() {
@@ -34,12 +34,12 @@ public class FxRate {
     this.currencyCode = currencyCode;
   }
 
-  public Double getValue() {
-    return value;
+  public Double getRate() {
+    return rate;
   }
 
-  public void setValue(Double value) {
-    this.value = value;
+  public void setRate(Double rate) {
+    this.rate = rate;
   }
 
   public LocalDate getDate() {

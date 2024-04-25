@@ -24,8 +24,8 @@ public class FxController {
   }
 
   @PostMapping
-  public void updateRates(@RequestParam LocalDate from, @RequestParam LocalDate to) {
-    fxService.updateRates(from, to);
+  public List<FxRate> updateRates(@RequestParam LocalDate from, @RequestParam LocalDate to) {
+    return fxService.updateRates(from, to);
   }
 
   @GetMapping
