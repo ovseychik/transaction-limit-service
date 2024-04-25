@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import kz.test.limitservice.transactionlimitservice.transaction.model.ExpenseCategory;
-import org.springframework.data.annotation.ReadOnlyProperty;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;

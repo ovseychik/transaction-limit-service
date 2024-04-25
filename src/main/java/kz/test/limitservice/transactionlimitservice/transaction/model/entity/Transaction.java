@@ -40,6 +40,9 @@ public class Transaction {
 
   private boolean limitExceeded;
 
+  @Column(precision = 8, scale = 2, nullable = false)
+  private BigDecimal usdEquivalent;
+
   @Transient
   private BigDecimal limitSum;
 
@@ -103,6 +106,14 @@ public class Transaction {
 
   public void setDatetime(ZonedDateTime dateTime) {
     this.dateTime = dateTime;
+  }
+
+  public BigDecimal getUsdEquivalent() {
+    return usdEquivalent;
+  }
+
+  public void setUsdEquivalent(BigDecimal usdEquivalent) {
+    this.usdEquivalent = usdEquivalent;
   }
 
   public BigDecimal getLimitSum() {

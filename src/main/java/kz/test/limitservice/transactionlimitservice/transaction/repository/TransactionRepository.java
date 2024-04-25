@@ -14,18 +14,28 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
   List<Transaction> findByLimitExceeded(boolean limitExceeded);
 
-  @Query(
-        """ 
-         SELECT COALESCE(SUM(t.sum), 0) 
-         FROM Transaction t 
-         WHERE EXTRACT(YEAR FROM t.dateTime) = EXTRACT(YEAR FROM :dateTime) 
-         AND EXTRACT(MONTH FROM t.dateTime) = EXTRACT(MONTH FROM :dateTime)  
-         AND t.expenseCategory = :category
-        """
-  )
+  @Query(""" 
+       SELECT COALESCE(SUM(t.usdEquivalent), 0) 
+       FROM Transaction t 
+       WHERE EXTRACT(YEAR FROM t.dateTime) = EXTRACT(YEAR FROM :dateTime) 
+       AND EXTRACT(MONTH FROM t.dateTime) = EXTRACT(MONTH FROM :dateTime)  
+       AND t.expenseCategory = :category
+      """)
   Optional<BigDecimal> getSumOfTransactionsForMonthByCategory(
       ExpenseCategory category,
       ZonedDateTime dateTime
   );
 
+  @Query(""" 
+       SELECT COALESCE(SUM(t.sum), 0) 
+       FROM Transaction t 
+       WHERE EXTRACT(YEAR FROM t.dateTime) = EXTRACT(YEAR FROM :dateTime) 
+       AND EXTRACT(MONTH FROM t.dateTime) = EXTRACT(MONTH FROM :dateTime)
+       AND t.expenseCategory = :category
+       AND t.currencyShortName = :currencyShortName
+      """)
+  Optional<BigDecimal> getSumOfTransactionsForMonthByCategoryAndCurrency(
+      ExpenseCategory category,
+      ZonedDateTime dateTime, String currencyShortName
+  );
 }
