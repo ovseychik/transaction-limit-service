@@ -18,6 +18,7 @@ public interface LimitRepository extends JpaRepository<Limit, Long> {
         AND EXTRACT(YEAR FROM l.datetime) = EXTRACT(YEAR FROM :dateTime)
         AND EXTRACT(MONTH FROM l.datetime) = EXTRACT(MONTH FROM :dateTime)
         ORDER BY l.datetime DESC
+        LIMIT 1
       """
   )
   Optional<Limit> getCurrentLimitByCategory(
