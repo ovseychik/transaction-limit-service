@@ -116,9 +116,7 @@ public class TransactionService {
       );
 
       if (optionalLimit.isPresent()) {
-        System.out.println(1 + optionalLimit.get().getId() + ", " + optionalLimit.get().getSum() + ", " + optionalLimit.get().getDatetime());
         Limit limit = optionalLimit.get();
-        System.out.println(2 + limit.getId() + ", " + limit.getSum() + ", " + limit.getDatetime());
         transaction.setLimitSum(limit.getSum());
         transaction.setLimitCurrencyShortName(limit.getCurrencyShortName());
         transaction.setLimitDateTime(limit.getDatetime());
