@@ -34,7 +34,7 @@
 2. В меню "Manage options" выбрать "Environment variables"
 3. Открыть диалоговое окно и добавить пару ключ-значение API_KEY=полученный_ключ
 
-<img width="1317" alt="Screenshot 2024-04-25 at 23 49 15" src="https://github.com/ovseychik/transaction-limit-service/assets/5370490/3469d43e-df18-44c6-aed6-1d33a604311b">
+<img width="1317" alt="Screenshot 2024-04-25 at 23 49 15" src="https://github.com/ovseychik/transaction-limit-service/assets/5370490/3c0dcad1-71b9-4039-97a0-ec17d103f020">
 
 ### В Docker
 
