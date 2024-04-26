@@ -29,10 +29,12 @@
 
 ### В IntelliJ (при локальной сборке проекта)
 
+Можно указать [в `application.properties`](https://github.com/ovseychik/transaction-limit-service/blob/dev/src/main/resources/application.properties#L14), заменив `${API_KEY}`на полученный ключ. Либо передать через переменную окружения (для защиты от случайного залития в гит), для этого нужно выполнить следующее:
+
 Выбрать в выпадающем списке конфигураций для запуска "Edit configurations..."
 1. В открывшемся окне выбрать конфигурацию Spring boot
 2. В меню "Manage options" выбрать "Environment variables"
-3. Открыть диалоговое окно и добавить пару ключ-значение API_KEY=полученный_ключ
+3. Открыть диалоговое окно и добавить пару ключ-значение API_KEY=полученный_ключ (4)
 
 <img width="1317" alt="Screenshot 2024-04-25 at 23 49 15" src="https://github.com/ovseychik/transaction-limit-service/assets/5370490/3c0dcad1-71b9-4039-97a0-ec17d103f020">
 
