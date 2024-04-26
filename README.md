@@ -1,4 +1,4 @@
-[Transactions - Local, Sergey Ovseychik.postman_collection.json](https://github.com/ovseychik/transaction-limit-service/files/15125528/Transactions.-.Local.Sergey.Ovseychik.postman_collection.json)# Краткое описание
+# Краткое описание
 
 Репозиторий содержит исходный код тестового задания для Solva Academy на позицию Junior Java Developer.
 
@@ -50,8 +50,8 @@ docker run -d -p 9000:8080 -e API_KEY=полученный_ключ
 Доступны в коллекции Postman, скачать [по ссылке](https://drive.google.com/drive/folders/1AOy1BAkU_CGxcK_03bDKPUECtDS-0mnJ?usp=sharing)
 
 Варианты
-* Локальный запуск: коллекция с названием local (при обращении к сервису в локалхосте)
-* Обращение к сервису на удаленном сервере (доступно в интернете): коллекция с названием remote (при желании протестировать сервис, запущенный на сервере)
+* Локальный запуск: коллекция с названием local (при обращении к сервису в локалхосте) [Transactions - Local, Sergey Ovseychik.postman_collection.json](https://github.com/ovseychik/transaction-limit-service/files/15125528/Transactions.-.Local.Sergey.Ovseychik.postman_collection.json)
+* Обращение к сервису на удаленном сервере (доступно в интернете): коллекция с названием remote (при желании протестировать сервис, запущенный на сервере) [Transactions - Remote, Sergey Ovseychik.postman_collection.json](https://github.com/ovseychik/transaction-limit-service/files/15125562/Transactions.-.Remote.Sergey.Ovseychik.postman_collection.json)
 
 ## Транзакции
 
