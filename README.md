@@ -42,7 +42,7 @@
 
 При запуске команды Docker run нужно передать как параметр `-e`:
 
-```
+```shell
 docker pull ghcr.io/ovseychik/transaction-limit-service
 docker run -d -p 9000:8080 -e API_KEY=полученный_ключ transaction-limit-service
 ```
