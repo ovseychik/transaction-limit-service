@@ -79,6 +79,7 @@ public class FxService {
     if (oldRate.isPresent()) {
       newRate.setId(oldRate.get().getId());
     }
+
     return fxRepository.save(newRate);
   }
 
